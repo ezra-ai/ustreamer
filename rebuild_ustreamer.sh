@@ -30,9 +30,6 @@ cd "$CLONE_DIR" || exit
 
 if [ -f "Makefile" ]; then
   make
-else
-  echo "No known setup instructions found. Please manually run the necessary commands."
-fi
 
 cd src/
 echo "service stop.."
