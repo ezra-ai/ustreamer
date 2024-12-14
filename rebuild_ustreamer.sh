@@ -31,13 +31,18 @@ cd "$CLONE_DIR" || exit
 if [ -f "Makefile" ]; then
   make
 
-cd src/
-echo "service stop.."
-systemctl stop kvmd.service || echo "Failed to stop kvmd.service."
-echo "kvmd.service stopped.."
-mv /usr/bin/ustreamer /usr/bin/ustreamer_bkp
-cp ustreamer.bin /usr/bin/ustreamer
-mv /usr/bin/ustreamer-dump /usr/bin/ustreamer_dump_bkp
-cp ustreamer-dump.bin /usr/bin/ustreamer-dump
-systemctl start kvmd.service || echo "Failed to start kvmd.service."
-echo "kvmd.service started"
+  # Proceed to 'src' directory and execute further commands
+  cd src/ || { echo "Failed to change directory to src/"; exit 1; }
+  echo "Service stop.."
+  systemctl stop kvmd.service || echo "Failed to stop kvmd.service."
+  echo "kvmd.service stopped.."
+  mv /usr/bin/ustreamer /usr/bin/ustreamer_bkp
+  cp ustreamer.bin /usr/bin/ustreamer
+  mv /usr/bin/ustreamer-dump /usr/bin/ustreamer_dump_bkp
+  cp ustreamer-dump.bin /usr/bin/ustreamer-dump
+  systemctl start kvmd.service || echo "Failed to start kvmd.service."
+  echo "kvmd.service started"
+else
+  echo "No Makefile found; could not build ustreamer."
+  exit 1
+fi
