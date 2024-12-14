@@ -16,6 +16,8 @@ fi
 # Clone the repository
 if [ -d "$CLONE_DIR" ]; then
   echo "Directory $CLONE_DIR already exists."
+  echo "pull latest code from repository $REPO_URL..."
+  GIT_SSH_COMMAND="ssh -i \"$GIT_SSH_PATH\"" git pull
 else
   echo "Cloning repository from $REPO_URL..."
   GIT_SSH_COMMAND="ssh -i \"$GIT_SSH_PATH\"" git clone "$REPO_URL"
